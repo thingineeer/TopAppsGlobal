@@ -169,18 +169,25 @@ struct ReleaseDateAttributes: Decodable {
     let label: String
 }
 
+// AppStoreResponseDTO.swift의 toDomain() 메서드 수정
 extension AppStoreResponseDTO {
     func toDomain() -> [AppEntity] {
         return feed.entry.map { entry in
-            AppEntity(
+            let price = entry.imPrice?.label ?? "무료"
+            let amount = Int(entry.imPrice?.attributes.amount ?? "0") ?? 0
+            
+            let priceLabel = amount == 0 ? "무료" : price
+            
+            return AppEntity(
                 id: entry.id.attributes.imId,
                 name: entry.imName.label,
                 developer: entry.imArtist?.label ?? "Unknown Developer",
                 category: entry.category.attributes.label,
                 imageUrl: entry.imImage[2].label,
-                summary: entry.summary?.label ?? "No Description",
+                summary: entry.summary?.label ?? "설명 없음",
                 releaseDate: entry.imReleaseDate.attributes.label,
-                appStoreUrl: "https://apps.apple.com/app/id\(entry.id.attributes.imId)"
+                appStoreUrl: entry.link.links[0].attributes.href,
+                price: priceLabel
             )
         }
     }

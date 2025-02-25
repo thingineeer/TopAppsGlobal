@@ -15,9 +15,11 @@ final class AppStoreViewModel: ObservableObject {
     @Published var errorMessage = ""
     
     private let fetchAppsUseCase: FetchAppsUseCase
+    private let appType: AppType
     
-    init(fetchAppsUseCase: FetchAppsUseCase) {
+    init(fetchAppsUseCase: FetchAppsUseCase, appType: AppType) {
         self.fetchAppsUseCase = fetchAppsUseCase
+        self.appType = appType
     }
     
     func fetchApps(for countryIndex: Int) async {
@@ -25,7 +27,7 @@ final class AppStoreViewModel: ObservableObject {
         
         isLoading = true
         do {
-            apps = try await fetchAppsUseCase.execute(country: country)
+            apps = try await fetchAppsUseCase.execute(country: country, appType: appType)
             isLoading = false
         } catch {
             isLoading = false
