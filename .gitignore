@@ -142,5 +142,7 @@ iOSInjectionProject/
 
 TopAppsGlobal-iOS/Data/Network/AppStoreAPI.swift
 Data/Network/
+/Config.swift
+TopAppsGlobal-iOS/TopAppsGlobal-iOS/Config/
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,fastlane,macos
