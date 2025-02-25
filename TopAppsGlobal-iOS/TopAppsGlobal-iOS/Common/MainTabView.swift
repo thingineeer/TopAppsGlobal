@@ -19,6 +19,10 @@ struct MainTabView: View {
                 .tabItem {
                     Label("유료", systemImage: "creditcard")
                 }
+            MyPageView()
+                .tabItem {
+                    Label("설정", systemImage: "gear")
+                }
         }
     }
 }
