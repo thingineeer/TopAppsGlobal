@@ -9,9 +9,10 @@ import Foundation
 
 final class AppStoreViewModelFactory {
     @MainActor
-    static func create() -> AppStoreViewModel {
+    static func create(appType: AppType) -> AppStoreViewModel {
         let repository = AppStoreRepositoryImpl()
         let useCase = FetchAppsUseCaseImpl(repository: repository)
-        return AppStoreViewModel(fetchAppsUseCase: useCase)
+        return AppStoreViewModel(fetchAppsUseCase: useCase, appType: appType)
     }
 }
+
