@@ -16,4 +16,5 @@ struct AppEntity: Identifiable {
     let summary: String
     let releaseDate: String
     let appStoreUrl: String
+    let price: String
 }
