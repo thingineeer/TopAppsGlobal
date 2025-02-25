@@ -8,7 +8,7 @@
 import Foundation
 
 protocol FetchAppsUseCase {
-    func execute(country: Country) async throws -> [AppEntity]
+    func execute(country: Country, appType: AppType) async throws -> [AppEntity]
 }
 
 final class FetchAppsUseCaseImpl: FetchAppsUseCase {
@@ -18,7 +18,7 @@ final class FetchAppsUseCaseImpl: FetchAppsUseCase {
         self.repository = repository
     }
     
-    func execute(country: Country) async throws -> [AppEntity] {
-        try await repository.fetchApps(country: country)
+    func execute(country: Country, appType: AppType) async throws -> [AppEntity] {
+        try await repository.fetchApps(country: country, appType: appType)
     }
 }
