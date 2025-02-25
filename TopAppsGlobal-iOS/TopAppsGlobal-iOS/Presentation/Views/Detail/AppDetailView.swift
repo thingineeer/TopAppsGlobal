@@ -44,7 +44,7 @@ struct AppDetailView: View {
                                 UIApplication.shared.open(url)
                             }
                         }) {
-                            Text("받기")
+                            Text("보러가기")
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
@@ -71,6 +71,7 @@ struct AppDetailView: View {
                         .font(.title3)
                         .bold()
                     
+                    InfoRowView(title: "가격", value: app.price)
                     InfoRowView(title: "개발자", value: app.developer)
                     InfoRowView(title: "카테고리", value: app.category)
                     InfoRowView(title: "출시일", value: app.releaseDate)
