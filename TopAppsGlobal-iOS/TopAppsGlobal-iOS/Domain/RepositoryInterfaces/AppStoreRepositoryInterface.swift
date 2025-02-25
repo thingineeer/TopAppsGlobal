@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AppStoreRepository {
-    func fetchApps(country: Country) async throws -> [AppEntity]
+    func fetchApps(country: Country, appType: AppType) async throws -> [AppEntity]
 }
 
 enum Country: Int {

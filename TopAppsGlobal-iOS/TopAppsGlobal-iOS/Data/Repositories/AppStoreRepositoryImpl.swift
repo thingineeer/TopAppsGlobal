@@ -7,9 +7,21 @@
 
 import Foundation
 
-final class AppStoreRepositoryImpl: AppStoreRepository {
-    func fetchApps(country: Country) async throws -> [AppEntity] {
-        guard let url = APIEndpoints.topFreeApps(country: country) else {
+
+class AppStoreRepositoryImpl: AppStoreRepository {
+    func fetchApps(country: Country, appType: AppType) async throws -> [AppEntity] {
+        let url: URL?
+        
+        switch appType {
+        case .free:
+            url = Config.URLGenerator.freeAppsURL(country: country)
+        case .paid:
+            url = Config.URLGenerator.paidAppsURL(country: country)
+        case .my:
+            return []
+        }
+        
+        guard let url else {
             throw URLError(.badURL)
         }
         
@@ -20,7 +32,15 @@ final class AppStoreRepositoryImpl: AppStoreRepository {
             throw URLError(.badServerResponse)
         }
         
-        let dto = try JSONDecoder().decode(AppStoreResponseDTO.self, from: data)
-        return dto.toDomain()
+        switch appType {
+        case .free:
+            let freeResponse = try JSONDecoder().decode(AppStoreResponseDTO.self, from: data)
+            return freeResponse.toDomain()
+        case .paid:
+            let paidResponse = try JSONDecoder().decode(AppStoreResponseDTO.self, from: data)
+            return paidResponse.toDomain()
+        case .my:
+            return []
+        }
     }
 }
