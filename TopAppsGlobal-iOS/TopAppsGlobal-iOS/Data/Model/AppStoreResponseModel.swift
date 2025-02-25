@@ -176,7 +176,7 @@ extension AppStoreResponseDTO {
             let price = entry.imPrice?.label ?? "무료"
             let amount = Int(entry.imPrice?.attributes.amount ?? "0") ?? 0
             
-            let priceLabel = amount == 0 ? "무료" : price
+            let priceLabel = amount == 0 ? "" : price
             
             return AppEntity(
                 id: entry.id.attributes.imId,
